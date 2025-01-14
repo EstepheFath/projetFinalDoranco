@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livescore Basketball - Matches{% endblock %}
+{#  #}
+{% block body %}
+
+    <link rel="stylesheet" href="{{ asset('assets/styles/app.css') }}">
+
+    <div class="cards-container">
+        {% if countries is not empty %}
+            {% for event in countries %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="league-name">{{ event.league_name }} - {{ event.league_season }}</h3>
+                        <p>{{ event.event_date }} at {{ event.event_time }}</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="teams">
+                            <div class="team">
+                                <img src="{{ event.event_home_team_logo ?: asset('assets/images/default-team-logo.png') }}" alt="{{ event.event_home_team }}">
+                                <h4>{{ event.event_home_team }}</h4>
+                            </div>
+                            <div class="score">
+                                <p>{{ event.event_final_result }}</p>
+                            </div>
+                            <div class="team">
+                                <img src="{{ event.event_away_team_logo ?: asset('assets/images/default-team-logo.png') }}" alt="{{ event.event_away_team }}">
+                                <h4>{{ event.event_away_team }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="card-footer">
+                        <p>Country: {#  {{ event.country_name }}#}</p>
+                        <p>Status: {#  {{ event.event_status }}#}</p>
+                    </div>-->
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No basketball events available.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
